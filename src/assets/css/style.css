@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  .app {
+    height: 100%;
+    background: rgba(189, 189, 192, 1);
+  }
+  h1, h2, h3, h4 {
+      margin: 0;
+      padding: 0;
+  }
+
+  ul{
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  /* Header component */
+
+  .navbar {
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    background: #021e38;
+    height: auto;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .burger > div{
+    cursor: pointer;
+    padding: 10px 10px;
+    width: 40px;
+  }
+  .burger span {
+    display: block;
+    background: #fff;
+    margin: 3px 0;
+    width: 30px;
+    height: 5px; 
+  }
+  .navbar ul li {
+    text-decoration: none;
+    color: #fff;
+    list-style: none;
+    padding: 5px 8px;
+  }
+  
+  
+  @media screen and (min-width: 576px) {
+    .navbar {
+      position: relative;
+      height: 50px;
+      z-index: 101;
+    }
+    .navbar ul{
+      position: absolute;
+      top: -15px;
+      right: 10px;
+      padding: 15px 10px;
+    }
+    
+  }
+  /* end of header component */
+
+  /* Landing style */
+  .landingContainer{
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/landingImage.jpg');
+  }
