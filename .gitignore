@@ -9,6 +9,8 @@ npm-debug.log*
 pids
 *.pid
 *.seed
-node_modules
+
 # Optional npm cache directory
 .npm
+coverage
+node_modules
