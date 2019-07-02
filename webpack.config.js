@@ -13,7 +13,7 @@ const cssPlugin = new MiniCssExtractPlugin({
 });
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   devtool: 'cheap-eval-source-map',
   output: {
     publicPath: '/',
