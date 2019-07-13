@@ -17,17 +17,14 @@ module.exports = {
   devtool: 'cheap-eval-source-map',
   output: {
     publicPath: '/',
-    path: path.resolve(__dirname, './src/dist'),
-    filename: '[name].bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   devServer: {
     historyApiFallback: true
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.css'],
-    alias: {
-      react: path.resolve('./node_modules/react')
-    }
+    extensions: ['.js', '.jsx', '.json', '.css']
   },
   node: {
     net: 'empty',

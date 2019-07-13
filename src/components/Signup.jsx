@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  func, object, string, objectOf,
+import PropTypes, {
+  func, string, number,
 } from 'prop-types';
 import 'regenerator-runtime';
 import Spinner from './Spinner';
@@ -38,7 +38,6 @@ export class RegisterComponent extends Component {
       event.preventDefault();
       loader();
       register(this.state);
-      console.log(register(this.state));
     };
 
     /**
@@ -48,63 +47,68 @@ export class RegisterComponent extends Component {
    */
     render() {
       const { errors, loadingText, } = this.props;
+      const passwordError = errors && errors.errors && errors.errors.password;
+      const emailError = errors && errors.errors && errors.errors.email;
+      const firstNameError = errors && errors.errors && errors.errors.firstName;
+      const lastNameError = errors && errors.errors && errors.errors.lastName;
+      const confirmPasswordError = errors && errors.errors && errors.errors.confirmPassword;
       return (
         <form onSubmit={this.handleSignUp} className="userform" method="post">
           <div>
             {errors.error && <p className="error">{errors.error}</p>}
             <InputField
               type="text"
-              required
               fieldId="firstname"
-              fieldName="firstname"
+              name="firstName"
               placeHolder="FirstName"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {firstNameError && <p className="error">{firstNameError}</p>}
           </div>
           <div>
             <InputField
-              required
               type="text"
               fieldId="lastname"
-              name="lastname"
+              name="lastName"
               placeHolder="LastName"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {lastNameError && <p className="error">{lastNameError}</p>}
           </div>
           <div>
             <InputField
               type="email"
-              required
               fieldId="email"
               name="email"
               placeHolder="Email"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {emailError && <p className="error">{emailError}</p>}
           </div>
 
           <div>
             <InputField
               type="password"
-              required
               fieldId="password"
               name="password"
               placeHolder="Password"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {passwordError && <p className="error">{passwordError}</p>}
           </div>
 
           <div>
             <InputField
               type="password"
-              required
               fieldId="confirmPassword"
-              fieldName="confirmPassword"
+              name="confirmPassword"
               placeHolder="ConfirmPassword"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
           </div>
           <div>
-            <button type="submit" className="btn btn-submit">
+            <button type="submit">
               {loadingText ? <Spinner loadingText={loadingText} /> : 'Sign Up'}
             </button>
           </div>
@@ -151,8 +155,22 @@ export default connect(
 
 RegisterComponent.propTypes = {
   register: func.isRequired,
-  errors: objectOf(object).isRequired,
+  errors: PropTypes.exact({
+    status: number,
+    error: string,
+    errors: PropTypes.exact({
+      password: string,
+      confirmPassword: string,
+      email: string,
+      firstName: string,
+      lastName: string,
+    }),
+  }),
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,
+};
+
+RegisterComponent.defaultProps = {
+  errors: string,
 };

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import 'regenerator-runtime';
-import propTypes, {
-  func, string, number
+import PropTypes, {
+  func, string, number,
 } from 'prop-types';
 import { InputField } from './FormComponents';
 import Spinner from './Spinner';
@@ -16,11 +16,6 @@ import { loginAction, clearErrors, processRequest, } from '../redux/actions/auth
  * @param {object} event - Synthetic event object
  */
 export class LoginComponent extends Component {
-  state = {
-    password: '',
-    email: '',
-  }
-
   /**
    * @method componentDidMount
    * @description React lifecycle method
@@ -55,28 +50,30 @@ export class LoginComponent extends Component {
       const {
         errors, loadingText,
       } = this.props;
+      const passwordError = errors && errors.errors && errors.errors.password;
+      const emailError = errors && errors.errors && errors.errors.email;
       return (
         <form onSubmit={this.handleUserSignIn} className="userform" method="post">
           <div>
-            {errors.error && <p className="error">{errors.error}</p>}
+            {errors && <p className="error">{errors.error}</p>}
             <InputField
               type="email"
-              required
               fieldId="email"
               name="email"
               placeHolder="Email"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {emailError && <p className="error">{emailError}</p>}
           </div>
           <div>
             <InputField
               type="password"
-              required
               fieldId="password"
               name="password"
               placeHolder="Password"
               inputChangeHandler={this.inputChangeHandler}
             />
+            {passwordError && <p className="error">{passwordError}</p>}
           </div>
           <div>
             <button type="submit" className="btn btn-submit">
@@ -127,16 +124,18 @@ export default connect(
 
 LoginComponent.propTypes = {
   loginUser: func.isRequired,
-  errors: propTypes.oneOfType([
-    string,
-    number,
-  ]),
-
+  errors: PropTypes.exact({
+    status: number,
+    error: string,
+    errors: PropTypes.exact({
+      password: string,
+      email: string,
+    }),
+  }),
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,
 };
-
 LoginComponent.defaultProps = {
-  errors: string
+  errors: {},
 };

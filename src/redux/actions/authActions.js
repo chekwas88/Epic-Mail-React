@@ -18,23 +18,23 @@ import {
  */
 const registerAction = async (userData) => {
   try {
-    const registerUser = await post(`${BASE_URL}/auth/signup`, userData);
-    const { payload } = registerUser.data;
-    console.log(payload);
+    const registerUser = await post('https://agentcorvinus-epic-mail.herokuapp.com/api/v1/auth/signup', userData);
+    const { data } = registerUser.data;
+    const { user } = data[0];
+    const { token } = data[0];
     const {
-      email, firstname, lastname, token
-    } = payload;
-    localStorage.setItem('email', email);
+      firstname, lastname
+    } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
     localStorage.setItem('userToken', token);
     return {
       type: REGISTER_USER,
-      payload: { ...payload }
+      payload: { ...user, token }
     };
   } catch (error) {
     return {
       type: REGISTER_ERROR,
-      payload: error.response.data
+      payload: error.response.data,
     };
   }
 };
@@ -47,23 +47,24 @@ const registerAction = async (userData) => {
 const loginAction = async (userData) => {
   try {
     const loggedUser = await post(`${BASE_URL}/auth/login`, userData);
-    const { payload } = loggedUser.data;
-    console.log(payload);
+    const { data } = loggedUser.data;
+    const { user } = data[0];
+    const { token } = data[0];
     const {
-      email, firstname, lastname, token
-    } = payload;
-    localStorage.setItem('email', email);
+      firstname, lastname
+    } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
+    localStorage.setItem('userToken', token);
     localStorage.setItem('userToken', token);
 
     return {
       type: LOGIN_USER,
-      payload: { ...payload, }
+      payload: { ...user, token }
     };
   } catch (error) {
     return {
       type: LOGIN_ERROR,
-      payload: error.response.data
+      payload: error.response.data,
     };
   }
 };

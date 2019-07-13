@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React, { Fragment } from 'react';
-import { string, bool, func, } from 'prop-types';
+import { string, func, } from 'prop-types';
 
 /**
  * @method InputField
@@ -10,7 +10,6 @@ import { string, bool, func, } from 'prop-types';
  */
 const InputField = (
   {
-    required,
     type,
     fieldId,
     name,
@@ -25,14 +24,12 @@ const InputField = (
       name={name}
       placeholder={placeHolder}
       onChange={inputChangeHandler}
-      required={required}
     />
   </Fragment>
 );
 
 InputField.propTypes = {
   type: string,
-  required: bool,
   fieldId: string.isRequired,
   name: string.isRequired,
   placeHolder: string.isRequired,
@@ -40,7 +37,6 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  required: false,
   type: 'text',
 };
 
