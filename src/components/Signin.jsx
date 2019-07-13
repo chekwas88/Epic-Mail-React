@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import 'regenerator-runtime';
-import {
-  func, object, string, objectOf,
+import propTypes, {
+  func, string, number
 } from 'prop-types';
 import { InputField } from './FormComponents';
 import Spinner from './Spinner';
@@ -52,7 +52,6 @@ export class LoginComponent extends Component {
    * @returns {JSX} React component markup
    */
     render() {
-      const { email, password } = this.state;
       const {
         errors, loadingText,
       } = this.props;
@@ -61,29 +60,21 @@ export class LoginComponent extends Component {
           <div>
             {errors.error && <p className="error">{errors.error}</p>}
             <InputField
-              label="email"
-              forAttribute="email"
-              fieldType="email"
+              type="email"
               required
               fieldId="email"
-              fieldName="email"
-              placeHolder="Enter Email"
-              classname="form-input"
-              value={email}
+              name="email"
+              placeHolder="Email"
               inputChangeHandler={this.inputChangeHandler}
             />
           </div>
           <div>
             <InputField
-              label="password"
-              forAttribute="password"
-              fieldType="password"
+              type="password"
               required
               fieldId="password"
-              fieldName="password"
-              placeHolder="Enter Password"
-              classname="form-input"
-              value={password}
+              name="password"
+              placeHolder="Password"
               inputChangeHandler={this.inputChangeHandler}
             />
           </div>
@@ -136,8 +127,16 @@ export default connect(
 
 LoginComponent.propTypes = {
   loginUser: func.isRequired,
-  errors: objectOf(object).isRequired,
+  errors: propTypes.oneOfType([
+    string,
+    number,
+  ]),
+
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,
+};
+
+LoginComponent.defaultProps = {
+  errors: string
 };

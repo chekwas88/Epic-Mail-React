@@ -18,8 +18,9 @@ import {
  */
 const registerAction = async (userData) => {
   try {
-    const registerUser = await post(`${BASE_URL}/users`, userData);
+    const registerUser = await post(`${BASE_URL}/auth/signup`, userData);
     const { payload } = registerUser.data;
+    console.log(payload);
     const {
       email, firstname, lastname, token
     } = payload;

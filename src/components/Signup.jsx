@@ -38,6 +38,7 @@ export class RegisterComponent extends Component {
       event.preventDefault();
       loader();
       register(this.state);
+      console.log(register(this.state));
     };
 
     /**
@@ -52,61 +53,57 @@ export class RegisterComponent extends Component {
           <div>
             {errors.error && <p className="error">{errors.error}</p>}
             <InputField
-              label="Firstname"
-              forAttribute="firstname"
-              fieldType="text"
+              type="text"
               required
               fieldId="firstname"
               fieldName="firstname"
               placeHolder="FirstName"
-              classname="form-input"
               inputChangeHandler={this.inputChangeHandler}
             />
+          </div>
+          <div>
             <InputField
-              label="Lastname"
-              forAttribute="lastname"
-              fieldType="text"
               required
+              type="text"
               fieldId="lastname"
-              fieldName="lastname"
+              name="lastname"
               placeHolder="LastName"
-              classname="form-input"
               inputChangeHandler={this.inputChangeHandler}
             />
+          </div>
+          <div>
             <InputField
-              label="email"
-              forAttribute="email"
-              fieldType="email"
+              type="email"
               required
               fieldId="email"
-              fieldName="email"
+              name="email"
               placeHolder="Email"
-              classname="form-input"
               inputChangeHandler={this.inputChangeHandler}
             />
+          </div>
 
+          <div>
             <InputField
-              label="password"
-              forAttribute="password"
-              fieldType="password"
+              type="password"
               required
               fieldId="password"
-              fieldName="password"
+              name="password"
               placeHolder="Password"
-              classname="form-input"
               inputChangeHandler={this.inputChangeHandler}
             />
+          </div>
+
+          <div>
             <InputField
-              label="ConfirmPassword"
-              forAttribute="confirmPassword"
-              fieldType="password"
+              type="password"
               required
               fieldId="confirmPassword"
               fieldName="confirmPassword"
               placeHolder="ConfirmPassword"
-              classname="form-input"
               inputChangeHandler={this.inputChangeHandler}
             />
+          </div>
+          <div>
             <button type="submit" className="btn btn-submit">
               {loadingText ? <Spinner loadingText={loadingText} /> : 'Sign Up'}
             </button>

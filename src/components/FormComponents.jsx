@@ -8,56 +8,40 @@ import { string, bool, func, } from 'prop-types';
  * @param {object} props React props object
  * @returns {JSX} JSX Markup
  */
-const InputField = (props) => {
-  const {
+const InputField = (
+  {
     required,
-    fieldType,
+    type,
     fieldId,
-    fieldName,
+    name,
     placeHolder,
-    classname,
-    label,
-    forAttribute,
-    value,
     inputChangeHandler,
-  } = props;
-  return (
-    <Fragment>
-      <label htmlFor={forAttribute}>
-        {label}
-        {' '}
-        <span>{required && '*'}</span>
-      </label>
-      <input
-        type={fieldType}
-        id={fieldId}
-        name={fieldName}
-        className={classname}
-        placeholder={placeHolder}
-        onChange={inputChangeHandler}
-        required={required}
-        value={value}
-      />
-    </Fragment>
-  );
-};
+  }
+) => (
+  <Fragment>
+    <input
+      type={type}
+      id={fieldId}
+      name={name}
+      placeholder={placeHolder}
+      onChange={inputChangeHandler}
+      required={required}
+    />
+  </Fragment>
+);
 
 InputField.propTypes = {
-  fieldType: string.isRequired,
+  type: string,
   required: bool,
   fieldId: string.isRequired,
-  fieldName: string.isRequired,
+  name: string.isRequired,
   placeHolder: string.isRequired,
   inputChangeHandler: func.isRequired,
-  value: string.isRequired,
-  label: string.isRequired,
-  forAttribute: string.isRequired,
-  classname: string.isRequired,
 };
 
 InputField.defaultProps = {
-  required: false
+  required: false,
+  type: 'text',
 };
-
 
 export { InputField };
