@@ -55,8 +55,6 @@ const loginAction = async (userData) => {
     } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
     localStorage.setItem('userToken', token);
-    localStorage.setItem('userToken', token);
-
     return {
       type: LOGIN_USER,
       payload: { ...user, token }

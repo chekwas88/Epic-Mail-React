@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
 import reducers from './redux/reducers/rootReducer';
 import Landing from './Views/Landing';
+import ConnectedInbox from './Views/Inbox';
 import './assets/css/style.css';
 
 const store = createStore(reducers, applyMiddleware(ReduxPromise));
@@ -19,7 +20,7 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <Route exact path="/" component={Landing} />
-
+      <Route exact path="/inbox" component={ConnectedInbox} />
     </Router>
   </Provider>
 
