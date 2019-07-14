@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-
-import Header from '../component/Header';
+import Header from '../components/Header';
+import UserAuth from './UserAuth';
 
 /**
  * @method Landing
@@ -12,6 +12,7 @@ const Landing = () => (
     <Header />
     <div className="landingContainer">
       <h1>Welcome to epic mail</h1>
+      <UserAuth />
     </div>
   </Fragment>
 );

@@ -69,3 +69,125 @@ body {
     height: 100vh;
     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/landingImage.jpg');
   }
+
+  /* end of header */
+
+
+  /* user Auth */
+  .container {
+    margin: 0 auto;
+    width: 80%;
+    height: 80%;
+  }
+  .container > div {
+    width: 70%;
+    margin: 0 auto;
+    background: #fcfcfc;
+    color:#302f2f;
+    box-shadow: 0 0 4px rgba(86, 86, 87, 0.829)
+  }
+  .container > div > nav{
+    display: flex;
+    border-bottom: 1px solid #f0ebeb;
+    margin-bottom: 10px;
+    background: #070707;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+   
+  }
+  
+  .container > div nav > div {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .container > div  nav > div.active {
+    border-bottom: 3px solid #e77111;
+  }
+  
+
+  label {
+    display: block;
+    color: #f8851a;
+  }
+  
+  .form-container {
+    width: 30%;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 2;
+    border: 2px solid #eceaea;
+    border-radius: 4px;
+    top: 10%;
+    left: 66%;
+    box-shadow: 0 0 4px #ffffffee;
+  }
+  .form-container nav {
+    display: flex;
+    border-bottom: 1px solid #c4bfbf;
+    margin-bottom: 10px;
+    background: #070707;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  
+  .form-container > nav > div {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .userform {
+    position: relative;
+  }
+  
+  .userform > div {
+    padding: 10px;
+    font-size: 15px;
+  }
+  .userform > div input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 14px;
+    outline: none;
+    border: 2px solid #b0b5b9;
+    border-radius: 5px;
+    transition: all 0.5s;
+  }
+  .userform > div input:focus {
+    border-color: #f8851a;
+  }
+  
+  .userform > div button {
+    background: #021e38;
+    width: 100%;
+    color: #fff;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  
+  .userform > div button:hover {
+    background: #034786;
+  }
+
+  @media screen and (min-width: 576px) {
+    .container > div {
+      width: 40%;
+      margin: 100px auto;
+    }
+  }
+
+  /* end of user Auth */

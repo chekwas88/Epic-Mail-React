@@ -22,5 +22,9 @@ module.exports = {
     '!**/__tests__/**',
     '!**/index.js',
     '!**/dist/**'
+  ],
+  snapshotSerializers: [
+    'enzyme-to-json/serializer'
   ]
 };
+
