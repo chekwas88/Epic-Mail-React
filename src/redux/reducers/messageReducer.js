@@ -1,6 +1,8 @@
 import {
   GET_RECEIVED_MESSAGES,
   GET_RECEIVED_MESSAGES_ERROR,
+  GET_SENT_MESSAGES_MESSAGES,
+  GET_SENT_MESSAGES_MESSAGES_ERROR,
   PROCESS_REQUEST,
 } from '../actionTypes/index';
 
@@ -25,6 +27,18 @@ const messageReducer = (state = initialState, { type, payload }) => {
         receivedMessages: payload.inboxMessages,
       };
     case GET_RECEIVED_MESSAGES_ERROR:
+      return {
+        ...state,
+        loadingText: '',
+        errors: payload,
+      };
+    case GET_SENT_MESSAGES_MESSAGES:
+      return {
+        ...state,
+        loadingText: '',
+        sentMessages: payload.sentMessages,
+      };
+    case GET_SENT_MESSAGES_MESSAGES_ERROR:
       return {
         ...state,
         loadingText: '',

@@ -27,4 +27,3 @@ module.exports = {
     'enzyme-to-json/serializer'
   ]
 };
-

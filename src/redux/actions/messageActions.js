@@ -33,34 +33,27 @@ const getReceivedMessagesAction = async () => {
 };
 
 /**
- * @method loginAction
- * @param {object} userData
+ * @method getSentMessagesAction
  * @returns {object} action object
  */
-// const loginAction = async (userData) => {
-//   try {
-//     const loggedUser = await post(`${BASE_URL}/auth/login`, userData);
-//     const { data } = loggedUser.data;
-//     const { user } = data[0];
-//     const { token } = data[0];
-//     const {
-//       firstname, lastname
-//     } = user;
-//     localStorage.setItem('fullname', `${firstname} ${lastname}`);
-//     localStorage.setItem('userToken', token);
-//     localStorage.setItem('userToken', token);
-
-//     return {
-//       type: LOGIN_USER,
-//       payload: { ...user, token }
-//     };
-//   } catch (error) {
-//     return {
-//       type: LOGIN_ERROR,
-//       payload: error.response.data,
-//     };
-//   }
-// };
+const getSentMessagesAction = async () => {
+  try {
+    const payload = await get(`${BASE_URL}/messages/sent`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+    });
+    const { data } = payload.data;
+    const sentMessages = data[0].data;
+    return {
+      type: GET_RECEIVED_MESSAGES,
+      payload: { sentMessages }
+    };
+  } catch (error) {
+    return {
+      type: GET_RECEIVED_MESSAGES_ERROR,
+      payload: error.response.data,
+    };
+  }
+};
 
 /**
  * @method processingRequest
@@ -72,5 +65,5 @@ const processRequest = () => ({
 
 
 export {
-  getReceivedMessagesAction, processRequest,
+  getReceivedMessagesAction, getSentMessagesAction, processRequest,
 };
