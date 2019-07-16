@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
@@ -10,6 +11,8 @@ import 'regenerator-runtime';
 import { getReceivedMessagesAction, processRequest } from '../redux/actions/messageActions';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
+// import Modal from '../components/Modal';
+import Compose from './Compose';
 import Spinner from '../components/Spinner';
 
 /**
@@ -17,6 +20,10 @@ import Spinner from '../components/Spinner';
  * @description User login/sign view component
  */
 export class Inbox extends Component {
+  state = {
+    isOpen: false,
+  }
+
   /**
    * @method componentDidMount
    * @returns {undefined}
@@ -28,6 +35,22 @@ export class Inbox extends Component {
   }
 
   /**
+   * @method closeModal
+   * @returns {undefined}
+   */
+  closeModal = () => {
+    this.setState({ isOpen: false });
+  }
+
+  /**
+   * @method displayModal
+   * @returns {undefined}
+   */
+  displayModal = () => {
+    this.setState({ isOpen: true });
+  }
+
+  /**
   * @method displayReceivedMessages
    * @description displays received messages of a user
    * @returns {JSX} React component markup
@@ -36,29 +59,33 @@ export class Inbox extends Component {
       const { receivedMessages } = this.props;
       if (!receivedMessages.length > 1) {
         return (
-          <div>
+          <div className="empty-return">
             <p>You have no inbox message</p>
           </div>
         );
       }
-      return receivedMessages.map(m => (
-        <Fragment key={m.id}>
-          <div className="msg">
-            <span>
-              {m.sendername}
-            </span>
-            <span>
-              {m.message.substring(0, 50)}
-              ...
-            </span>
-            <span>
-              {m.createdon}
-            </span>
-          </div>
-          <span className="delSpan"><i className="fas fa-trash delete" /></span>
-        </Fragment>
-
-      ));
+      return (
+        <div className="layout-div">
+          {
+            receivedMessages.map(m => (
+              <Fragment key={m.id}>
+                <div className="msg">
+                  <span>
+                    {m.sendername}
+                  </span>
+                  <span>
+                    {m.message.substring(0, 50)}
+                  ...
+                  </span>
+                  <span>
+                    {m.createdon}
+                  </span>
+                </div>
+                <span className="delSpan"><i className="fas fa-trash delete" /></span>
+              </Fragment>
+            ))}
+        </div>
+      );
     };
 
     /**
@@ -67,6 +94,7 @@ export class Inbox extends Component {
    * @returns {JSX} React component markup
    */
     render() {
+      const { isOpen } = this.state;
       const {
         isLoggedIn,
         loadingText,
@@ -76,13 +104,13 @@ export class Inbox extends Component {
         <Fragment>
           {!isLoggedIn && <Redirect to="/landing" />}
           <Header />
-          <Sidebar />
+          <Sidebar displayModal={this.displayModal} />
           <div className="table-div">
-            <div className="layout-div">
-              {loadingText ? <Spinner loadingText={loadingText} /> : ''}
-              {this.displayReceivedMessages()}
-            </div>
+            { isOpen && <Compose closeModal={this.closeModal} /> }
+            <div className="mail-spinner">{loadingText ? <Spinner loadingText={loadingText} /> : ''}</div>
+            {this.displayReceivedMessages()}
           </div>
+
         </Fragment>
       );
     }

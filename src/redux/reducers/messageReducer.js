@@ -4,11 +4,14 @@ import {
   GET_SENT_MESSAGES_MESSAGES,
   GET_SENT_MESSAGES_MESSAGES_ERROR,
   PROCESS_REQUEST,
+  SEND_MESSAGE,
+  SEND_MESSAGE_ERROR,
 } from '../actionTypes/index';
 
 
 const initialState = {
   receivedMessages: [],
+  sentMessages: [],
   loadingText: '',
   errors: {},
 };
@@ -39,6 +42,19 @@ const messageReducer = (state = initialState, { type, payload }) => {
         sentMessages: payload.sentMessages,
       };
     case GET_SENT_MESSAGES_MESSAGES_ERROR:
+      return {
+        ...state,
+        loadingText: '',
+        errors: payload,
+      };
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        loadingText: '',
+        sendMessages: payload,
+      };
+
+    case SEND_MESSAGE_ERROR:
       return {
         ...state,
         loadingText: '',

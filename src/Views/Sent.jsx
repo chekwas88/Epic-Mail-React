@@ -37,8 +37,8 @@ export class SentBox extends Component {
       console.log(sentMessages);
       if (sentMessages.length === 0) {
         return (
-          <div>
-            <p>You have no inbox message</p>
+          <div className="empty-return">
+            <p>Your sent box is empty</p>
           </div>
         );
       }
@@ -85,7 +85,7 @@ export class SentBox extends Component {
           <Header />
           <Sidebar />
           <div className="table-div">
-            {loadingText ? <Spinner loadingText={loadingText} /> : ''}
+            <div className="mail-spinner">{loadingText ? <Spinner loadingText={loadingText} /> : ''}</div>
 
             {this.displaySentMessages()}
 

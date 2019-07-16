@@ -1,5 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { func } from 'prop-types';
 
 /**
  * @method Sidebar
@@ -7,19 +11,25 @@ import { Link } from 'react-router-dom';
  * @description Header component
  * @returns {JSX} JSX Markup
  */
-const Sidebar = () => (
+const Sidebar = ({ displayModal }) => (
   <div id="mailCompo" className="side-nav hide">
     <nav>
       <ul>
-        <li>
-          <span><i className="fas fa-plus" /></span>
-          <span>Compose</span>
-        </li>
+        <Link to="#">
+          <li
+            onClick={displayModal}
+            role="button"
+            tabIndex={0}
+          >
+            <span><i className="fas fa-plus" /></span>
+            <span>Compose</span>
+          </li>
+        </Link>
+
         <Link to="/inbox">
           <li>
             <span><i className="fas fa-envelope" /></span>
             <span>Inbox</span>
-            <span className="numunread">1</span>
           </li>
         </Link>
         <Link to="/sent">
@@ -45,3 +55,6 @@ const Sidebar = () => (
   </div>
 );
 export default Sidebar;
+Sidebar.propTypes = {
+  displayModal: func.isRequired,
+};
