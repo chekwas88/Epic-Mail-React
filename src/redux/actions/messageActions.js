@@ -6,7 +6,10 @@ import {
   GET_RECEIVED_MESSAGES_ERROR,
   PROCESS_REQUEST,
   SEND_MESSAGE,
+  GET_SENT_MESSAGES,
+  GET_SENT_MESSAGES_ERROR,
   SEND_MESSAGE_ERROR,
+  CLEAR_MESSAGE_ERROR,
 
 } from '../actionTypes/index';
 
@@ -71,12 +74,12 @@ const getSentMessagesAction = async () => {
     const { data } = payload.data;
     const sentMessages = data[0].data;
     return {
-      type: GET_RECEIVED_MESSAGES,
+      type: GET_SENT_MESSAGES,
       payload: { sentMessages }
     };
   } catch (error) {
     return {
-      type: GET_RECEIVED_MESSAGES_ERROR,
+      type: GET_SENT_MESSAGES_ERROR,
       payload: error.response.data,
     };
   }
@@ -90,7 +93,14 @@ const processRequest = () => ({
   type: PROCESS_REQUEST
 });
 
+/**
+ * @method clearErrors
+ * @returns {object} action object
+ */
+const clearErrors = () => ({
+  type: CLEAR_MESSAGE_ERROR
+});
 
 export {
-  getReceivedMessagesAction, getSentMessagesAction, processRequest, sendMessageAction
+  getReceivedMessagesAction, getSentMessagesAction, processRequest, sendMessageAction, clearErrors
 };

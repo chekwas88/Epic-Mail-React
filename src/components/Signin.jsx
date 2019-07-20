@@ -61,7 +61,7 @@ export class LoginComponent extends Component {
               fieldId="email"
               name="email"
               placeHolder="Email"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {emailError && <p className="error">{emailError}</p>}
           </div>
@@ -71,7 +71,7 @@ export class LoginComponent extends Component {
               fieldId="password"
               name="password"
               placeHolder="Password"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>

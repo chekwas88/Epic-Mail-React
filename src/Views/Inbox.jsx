@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/prefer-stateless-function */
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -11,7 +9,6 @@ import 'regenerator-runtime';
 import { getReceivedMessagesAction, processRequest } from '../redux/actions/messageActions';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-// import Modal from '../components/Modal';
 import Compose from './Compose';
 import Spinner from '../components/Spinner';
 

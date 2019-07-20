@@ -53,7 +53,7 @@ export class RegisterComponent extends Component {
       const lastNameError = errors && errors.errors && errors.errors.lastName;
       const confirmPasswordError = errors && errors.errors && errors.errors.confirmPassword;
       return (
-        <form onSubmit={this.handleSignUp} className="userform" method="post">
+        <form onSubmit={e => this.handleSignUp(e)} className="userform" method="post">
           <div>
             {errors.error && <p className="error">{errors.error}</p>}
             <InputField
@@ -61,7 +61,7 @@ export class RegisterComponent extends Component {
               fieldId="firstname"
               name="firstName"
               placeHolder="FirstName"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {firstNameError && <p className="error">{firstNameError}</p>}
           </div>
@@ -71,7 +71,7 @@ export class RegisterComponent extends Component {
               fieldId="lastname"
               name="lastName"
               placeHolder="LastName"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {lastNameError && <p className="error">{lastNameError}</p>}
           </div>
@@ -81,7 +81,7 @@ export class RegisterComponent extends Component {
               fieldId="email"
               name="email"
               placeHolder="Email"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {emailError && <p className="error">{emailError}</p>}
           </div>
@@ -92,7 +92,7 @@ export class RegisterComponent extends Component {
               fieldId="password"
               name="password"
               placeHolder="Password"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>
@@ -103,7 +103,7 @@ export class RegisterComponent extends Component {
               fieldId="confirmPassword"
               name="confirmPassword"
               placeHolder="ConfirmPassword"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
           </div>

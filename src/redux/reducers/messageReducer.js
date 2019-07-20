@@ -1,11 +1,12 @@
 import {
   GET_RECEIVED_MESSAGES,
   GET_RECEIVED_MESSAGES_ERROR,
-  GET_SENT_MESSAGES_MESSAGES,
-  GET_SENT_MESSAGES_MESSAGES_ERROR,
+  GET_SENT_MESSAGES,
+  GET_SENT_MESSAGES_ERROR,
   PROCESS_REQUEST,
   SEND_MESSAGE,
   SEND_MESSAGE_ERROR,
+  CLEAR_MESSAGE_ERROR
 } from '../actionTypes/index';
 
 
@@ -35,13 +36,13 @@ const messageReducer = (state = initialState, { type, payload }) => {
         loadingText: '',
         errors: payload,
       };
-    case GET_SENT_MESSAGES_MESSAGES:
+    case GET_SENT_MESSAGES:
       return {
         ...state,
         loadingText: '',
         sentMessages: payload.sentMessages,
       };
-    case GET_SENT_MESSAGES_MESSAGES_ERROR:
+    case GET_SENT_MESSAGES_ERROR:
       return {
         ...state,
         loadingText: '',
@@ -60,10 +61,16 @@ const messageReducer = (state = initialState, { type, payload }) => {
         loadingText: '',
         errors: payload,
       };
+    case CLEAR_MESSAGE_ERROR:
+      return {
+        ...state,
+        loadingText: '',
+        errors: {},
+      };
     case PROCESS_REQUEST:
       return {
         ...state,
-        loadingText: 'Processing...',
+        loadingText: 'Loading...',
       };
     default:
       return state;
