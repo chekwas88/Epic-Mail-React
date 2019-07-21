@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// import { withRouter } from 'react-router-dom';
 import PropTypes, {
   func, string, number,
 } from 'prop-types';
@@ -34,10 +35,10 @@ export class RegisterComponent extends Component {
     };
 
     handleSignUp = (event) => {
-      const { register, loader, } = this.props;
+      const { register, loader, history } = this.props;
       event.preventDefault();
       loader();
-      register(this.state);
+      register(this.state, history);
     };
 
     /**
@@ -166,6 +167,7 @@ RegisterComponent.propTypes = {
       lastName: string,
     }),
   }),
+  history: string.isRequired,
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,

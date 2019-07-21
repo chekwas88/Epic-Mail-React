@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import 'regenerator-runtime';
 import PropTypes, {
   func, string, number,
@@ -35,10 +36,11 @@ export class LoginComponent extends Component {
     }
 
     handleUserSignIn = (event) => {
+      const { history } = this.props;
       event.preventDefault();
       const { loginUser, loader } = this.props;
       loader();
-      loginUser(this.state);
+      loginUser(this.state, history);
     }
 
     /**
@@ -120,7 +122,7 @@ export const mapStateToProps = ({ auth }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginComponent);
+)(withRouter(LoginComponent));
 
 LoginComponent.propTypes = {
   loginUser: func.isRequired,
@@ -132,6 +134,7 @@ LoginComponent.propTypes = {
       email: string,
     }),
   }),
+  history: string.isRequired,
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,

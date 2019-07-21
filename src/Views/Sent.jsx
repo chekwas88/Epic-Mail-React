@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,6 +11,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Compose from './Compose';
 import Spinner from '../components/Spinner';
+import { convertTime } from '../utils/index';
 
 /**
  * @class Inbox
@@ -80,7 +80,7 @@ export class SentBox extends Component {
                   ...
                 </span>
                 <span>
-                  {m.createdon}
+                  {convertTime(m.createdon)}
                 </span>
               </div>
               <span className="delSpan"><i className="fas fa-trash delete" /></span>
@@ -111,6 +111,13 @@ export class SentBox extends Component {
           <div className="table-div">
             { isOpen && <Compose closeModal={this.closeModal} /> }
             <div className="mail-spinner">{loadingText ? <Spinner loadingText={loadingText} /> : ''}</div>
+            <div>
+              <ul className="message-header">
+                <li>Sender</li>
+                <li>Subject-Message</li>
+                <li>Time</li>
+              </ul>
+            </div>
 
             {this.displaySentMessages()}
 

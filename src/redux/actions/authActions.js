@@ -14,9 +14,10 @@ import {
 /**
  * @method registerAction
  * @param {object} userData
+ * @param {string} history
  * @returns {object} action object
  */
-const registerAction = async (userData) => {
+const registerAction = async (userData, history) => {
   try {
     const registerUser = await post('https://agentcorvinus-epic-mail.herokuapp.com/api/v1/auth/signup', userData);
     const { data } = registerUser.data;
@@ -27,6 +28,7 @@ const registerAction = async (userData) => {
     } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
     localStorage.setItem('userToken', token);
+    history.push('/inbox');
     return {
       type: REGISTER_USER,
       payload: { ...user, token }
@@ -42,9 +44,10 @@ const registerAction = async (userData) => {
 /**
  * @method loginAction
  * @param {object} userData
+ *  @param {string} history
  * @returns {object} action object
  */
-const loginAction = async (userData) => {
+const loginAction = async (userData, history) => {
   try {
     const loggedUser = await post(`${BASE_URL}/auth/login`, userData);
     const { data } = loggedUser.data;
@@ -55,6 +58,7 @@ const loginAction = async (userData) => {
     } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
     localStorage.setItem('userToken', token);
+    history.push('/inbox');
     return {
       type: LOGIN_USER,
       payload: { ...user, token }
