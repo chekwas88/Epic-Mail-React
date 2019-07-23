@@ -11,6 +11,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Compose from './Compose';
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
 import { convertTime } from '../utils/index';
 
 /**
@@ -115,7 +116,7 @@ export class Inbox extends Component {
             </div>
             {this.displayReceivedMessages()}
           </div>
-
+          <Footer />
         </Fragment>
       );
     }

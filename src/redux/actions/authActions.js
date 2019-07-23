@@ -19,7 +19,7 @@ import {
  */
 const registerAction = async (userData, history) => {
   try {
-    const registerUser = await post('https://agentcorvinus-epic-mail.herokuapp.com/api/v1/auth/signup', userData);
+    const registerUser = await post(`${BASE_URL}/auth/signup`, userData);
     const { data } = registerUser.data;
     const { user } = data[0];
     const { token } = data[0];

@@ -6,10 +6,8 @@ import { bool } from 'prop-types';
 
 
 /**
- * @method Header
- * @param {object} event React synthetic event object
+ * @class Header
  * @description Header component
- * @returns {JSX} JSX Markup
  */
 export class Header extends Component {
   /**

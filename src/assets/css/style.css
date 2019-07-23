@@ -937,8 +937,24 @@ body {
   .modal-body {
     margin-top: 20px;
   }
+
+  /* end of modal */
   
-  
+  /* Footer */
+  footer {
+    color: #fff;
+    padding: 10px;
+    font-weight: 550;
+    background: #021e38;
+    text-align: center;
+  }
+  footer.f-style{
+    margin: 20px 0 0 0;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
   
   
   
