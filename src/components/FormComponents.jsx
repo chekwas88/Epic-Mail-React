@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React, { Fragment } from 'react';
-import { string, func, } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 
 /**
  * @method InputField
@@ -14,6 +14,7 @@ const InputField = (
     fieldId,
     name,
     placeHolder,
+    required,
     inputChangeHandler,
   }
 ) => (
@@ -22,6 +23,7 @@ const InputField = (
       type={type}
       id={fieldId}
       name={name}
+      required={required}
       placeholder={placeHolder}
       onChange={inputChangeHandler}
     />
@@ -32,12 +34,14 @@ InputField.propTypes = {
   type: string,
   fieldId: string.isRequired,
   name: string.isRequired,
+  required: bool,
   placeHolder: string.isRequired,
   inputChangeHandler: func.isRequired,
 };
 
 InputField.defaultProps = {
   type: 'text',
+  required: false,
 };
 
 export { InputField };

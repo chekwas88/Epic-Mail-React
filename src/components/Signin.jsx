@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import 'regenerator-runtime';
 import PropTypes, {
   func, string, number,
@@ -35,10 +36,11 @@ export class LoginComponent extends Component {
     }
 
     handleUserSignIn = (event) => {
+      const { history } = this.props;
       event.preventDefault();
       const { loginUser, loader } = this.props;
       loader();
-      loginUser(this.state);
+      loginUser(this.state, history);
     }
 
     /**
@@ -61,7 +63,7 @@ export class LoginComponent extends Component {
               fieldId="email"
               name="email"
               placeHolder="Email"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {emailError && <p className="error">{emailError}</p>}
           </div>
@@ -71,7 +73,7 @@ export class LoginComponent extends Component {
               fieldId="password"
               name="password"
               placeHolder="Password"
-              inputChangeHandler={this.inputChangeHandler}
+              inputChangeHandler={e => this.inputChangeHandler(e)}
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>
@@ -120,7 +122,7 @@ export const mapStateToProps = ({ auth }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginComponent);
+)(withRouter(LoginComponent));
 
 LoginComponent.propTypes = {
   loginUser: func.isRequired,
@@ -132,6 +134,7 @@ LoginComponent.propTypes = {
       email: string,
     }),
   }),
+  history: string.isRequired,
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,

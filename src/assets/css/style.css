@@ -16,6 +16,23 @@ body {
     padding: 0;
     
   }
+  /* utilities */
+  .error{
+    color: #ff0000;
+    padding: 5px;
+  }
+  .empty-return {
+    width: 60%;
+    margin: 20% auto;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+  }
+  .mail-spinner {
+    z-index: 10;
+    font-size: 40px;
+    text-align: center;
+  }
   
   /* Header component */
 
@@ -28,23 +45,25 @@ body {
     font-size: 14px;
     font-weight: bold;
   }
-  .burger > div{
-    cursor: pointer;
-    padding: 10px 10px;
-    width: 40px;
-  }
-  .burger span {
-    display: block;
-    background: #fff;
-    margin: 3px 0;
-    width: 30px;
-    height: 5px; 
-  }
   .navbar ul li {
     text-decoration: none;
     color: #fff;
     list-style: none;
     padding: 5px 8px;
+  }
+  .navbar ul li {
+    padding: 10px;
+    border-bottom: 1px solid rgba(233,233,233,0.2);
+    cursor: pointer;
+  }
+  
+  .navbar ul li:hover {
+    border-bottom: 2px solid #e68f0e;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: #fff;
   }
   
   
@@ -56,9 +75,11 @@ body {
     }
     .navbar ul{
       position: absolute;
-      top: -15px;
       right: 10px;
       padding: 15px 10px;
+    }
+    .navbar ul li {
+      display: inline;
     }
     
   }
@@ -67,7 +88,22 @@ body {
   /* Landing style */
   .landingContainer{
     height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/landingImage.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/landing1.png');
+    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  .hwu{
+    color: #fff;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 30%;
+  }
+
+  .hwu p {
+    font-size: 2rem;
+    font-weight: bold;
   }
 
   /* end of header */
@@ -75,12 +111,14 @@ body {
 
   /* user Auth */
   .container {
-    margin: 0 auto;
-    width: 80%;
+    width: 40%;
     height: 80%;
+    position: absolute;
+    right: 0;
+    top: 20%;
   }
   .container > div {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
     background: #fcfcfc;
     color:#302f2f;
@@ -102,6 +140,9 @@ body {
     padding: 10px;
     text-align: center;
     cursor: pointer;
+  }
+  .container > div nav > div:focus {
+    outline: none;
   }
   
   .container > div  nav > div.active {
@@ -185,8 +226,8 @@ body {
 
   @media screen and (min-width: 576px) {
     .container > div {
-      width: 40%;
-      margin: 100px auto;
+      width: 70%;
+      margin: 10px auto;
     }
   }
 
@@ -379,21 +420,21 @@ body {
     transition-delay: 0.1s;
   }
   
-  .compose-div div header {
+  .compose-layout div header {
     background: #c2bfbf;
     padding: 10px;
     margin: 0;
     color: #070707;
   }
   
-  .compose-div div header h3 {
+  .compose-layout div header h3 {
     margin: 0;
     display: inline;
   }
   
   
   
-  .compose-div div input {
+  .compose-layout div input {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
@@ -407,7 +448,7 @@ body {
     border-bottom: 1px solid #c2bfbf;
   }
   
-  .compose-div div textarea {
+  .compose-layout div textarea {
     max-width: 100%;
     padding: 10px;
     box-sizing: border-box;
@@ -416,31 +457,30 @@ body {
     margin-bottom: 10px;
   }
   
-  .compose-div div div {
+  .compose-layout div div {
     margin-bottom: 10px;
   }
   
   
-  .compose-div div div span i{
+  .compose-layout div div span i{
     padding: 10px;
     font-size: 20px;
     margin-top: 2px;
     color: #d80a0a;
   }
   
-  .compose-div div div button {
+  .compose-layout div div button {
     margin-left: 5px;
     padding: 7px;
     font-size: 20px;
     color: #fff;
-    width: 80px;
     background: #063c5c;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     box-shadow: 0 0 4px rgba(54, 52, 52, 0.7);
   }
-  .compose-div div header button {
+  .compose-layout div header button {
     float: right;
     border: none;
     color: #fff;
@@ -453,6 +493,15 @@ body {
   }
   
   /* mailview */
+  ul.message-header{
+    display:none;
+    list-style: none;
+  }
+  ul.message-header li {
+    color: #054570;
+    font-weight: bolder;
+    font-size: 18px;
+  }
   
   section.messageView div button {
     padding: 7px 7px;
@@ -784,7 +833,7 @@ body {
   
     .compose-layout, .rf-layout {
       top: 50%;
-      left: 60%;
+      left: 50%;
       width: 100%;
       max-width: 400px;
     } 
@@ -804,20 +853,24 @@ body {
   
   @media screen and (min-width: 800px) {
     
-    .layout-div div, .draft-div div {
+    .layout-div div, ul.message-header {
       display: flex;
       justify-content: space-between;
     }
   
   
-    .layout-div div span, .draft-div div span {
+    .layout-div div span,
+    .draft-div div span,
+    .message-header li {
       flex: 2 1 180px;
       padding: 5px;
       margin: 0 5px;
       
     }
   
-    .layout-div div span:nth-child(3), .draft-div div span:nth-child(3) {
+    .layout-div div span:nth-child(3),
+    .draft-div div span:nth-child(3),
+    .message-header li:nth-child(3) {
       flex: 1 3 80px;
     }
     .layout-div span.delSpan .delete, .draft-div div span:nth-child(4) {
@@ -828,7 +881,9 @@ body {
       line-height: 1.2rem;
     }
   
-    .layout-div div span:nth-child(1), .draft-div div span:nth-child(1) {
+    .layout-div div span:nth-child(1),
+    .draft-div div span:nth-child(1),
+    .message-header li:nth-child(1) {
       flex: 1 2 100px;
     }
   }
@@ -855,9 +910,6 @@ body {
     }
     
     .compose-layout,.rf-layout {
-      top: 65%;
-      left: 75%;
-      width: 100%;
       max-width: 600px;
     }
     #alarm  {
@@ -866,7 +918,43 @@ body {
     }
      
   }
+
+  /* modal */
+  .modal-open {
+    overflow: hidden;
+  }
   
+  .modal-toggle.modal-open {
+    background: rgba(50, 41, 47, 0.76);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 80;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+
+  /* end of modal */
+  
+  /* Footer */
+  footer {
+    color: #fff;
+    padding: 10px;
+    font-weight: 550;
+    background: #021e38;
+    text-align: center;
+  }
+  footer.f-style{
+    margin: 20px 0 0 0;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
   
   
   

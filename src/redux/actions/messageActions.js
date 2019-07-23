@@ -1,13 +1,43 @@
-import { get } from 'axios';
+import { get, post } from 'axios';
 import { BASE_URL } from '../../Constants/Constants';
 import 'regenerator-runtime';
 import {
   GET_RECEIVED_MESSAGES,
   GET_RECEIVED_MESSAGES_ERROR,
   PROCESS_REQUEST,
+  SEND_MESSAGE,
+  GET_SENT_MESSAGES,
+  GET_SENT_MESSAGES_ERROR,
+  SEND_MESSAGE_ERROR,
+  CLEAR_MESSAGE_ERROR,
 
 } from '../actionTypes/index';
 
+
+/**
+ * @method registerAction
+ * @param {object} messageBody
+ * @returns {object} action object
+ */
+const sendMessageAction = async (messageBody) => {
+  try {
+    const payload = await post(`${BASE_URL}/messages`, messageBody, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+    });
+    const { data } = payload.data;
+    const { postedMessage } = data[0].data;
+
+    return {
+      type: SEND_MESSAGE,
+      payload: { ...postedMessage }
+    };
+  } catch (error) {
+    return {
+      type: SEND_MESSAGE_ERROR,
+      payload: error.response.data,
+    };
+  }
+};
 
 /**
  * @method getReceivedMessagesAction
@@ -44,12 +74,12 @@ const getSentMessagesAction = async () => {
     const { data } = payload.data;
     const sentMessages = data[0].data;
     return {
-      type: GET_RECEIVED_MESSAGES,
+      type: GET_SENT_MESSAGES,
       payload: { sentMessages }
     };
   } catch (error) {
     return {
-      type: GET_RECEIVED_MESSAGES_ERROR,
+      type: GET_SENT_MESSAGES_ERROR,
       payload: error.response.data,
     };
   }
@@ -63,7 +93,14 @@ const processRequest = () => ({
   type: PROCESS_REQUEST
 });
 
+/**
+ * @method clearErrors
+ * @returns {object} action object
+ */
+const clearErrors = () => ({
+  type: CLEAR_MESSAGE_ERROR
+});
 
 export {
-  getReceivedMessagesAction, getSentMessagesAction, processRequest,
+  getReceivedMessagesAction, getSentMessagesAction, processRequest, sendMessageAction, clearErrors
 };
