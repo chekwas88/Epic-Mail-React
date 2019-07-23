@@ -93,7 +93,7 @@ export class ComposeComponent extends Component {
               </div>
 
               <div>
-                <button id="grp-compose-send" type="submit" onClick={e => this.handleSendMessage(e)}>
+                <button id="grp-compose-send" className="compose-bttn" type="submit" onClick={e => this.handleSendMessage(e)}>
                   {loadingText || 'Send'}
                 </button>
                 <span><i id="grp-compose-delete" className="fas fa-trash" /></span>
