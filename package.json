@@ -9,7 +9,7 @@
         "build": "rm -rf dist && webpack --mode production --env.production",
         "serve": " npm run build && npm run start",
         "test": "jest",
-        "coveralls": "jest --config=jest.config.js --coverage -u",
+        "coveralls": "jest --config=jest.config.js --coverage -u && cat ./coverage/lcov.info | coveralls",
         "lint": "eslint ./src/*.jsx ./src/**/*.jsx --fix",
         "start:dev": "webpack-dev-server --open"
     },
@@ -50,6 +50,7 @@
         "@babel/preset-env": "^7.4.2",
         "@babel/preset-react": "^7.0.0",
         "axios": "^0.18.0",
+        "coveralls": "^3.0.5",
         "dotenv": "^7.0.0",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.12.1",
