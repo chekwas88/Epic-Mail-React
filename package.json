@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "babel-node index",
+        "heroku-postbuild": "rm -rf dist && NPM_CONFIG_PRODUCTION=false npm run build",
         "build": "rm -rf dist && webpack --mode production --env.production",
         "serve": " npm run build && npm run start",
         "test": "jest",
