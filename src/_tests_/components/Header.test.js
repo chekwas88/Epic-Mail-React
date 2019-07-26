@@ -5,7 +5,7 @@ import { Header } from '../../components/Header';
 
 describe('Test for Header component', () => {
   test('should render header correctly', () => {
-    const wrapper = shallow(<Header />);
+    const wrapper = shallow(<Header isLoggedIn={false} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

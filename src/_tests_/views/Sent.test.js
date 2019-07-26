@@ -25,12 +25,9 @@ describe('test Login component', () => {
       </Router>
     </Provider>
   );
-  it('should ensure that Inbox renders correctly', () => {
+  it('should ensure that sent component renders correctly', () => {
     expect(SentComponent.find('Sidebar').exists()).toBe(true);
     expect(SentComponent.find('Header').exists()).toBe(true);
     expect(SentComponent.find('Footer').exists()).toBe(true);
-  });
-  it('should call the instance functions if component renders correctly', () => {
-    SentComponent.setState({ isOpen: true });
   });
 });

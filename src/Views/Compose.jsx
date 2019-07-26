@@ -15,6 +15,12 @@ import { InputField } from '../components/FormComponents';
  * @description View for composing message
  */
 export class ComposeComponent extends Component {
+state = {
+  recipient: '',
+  subject: '',
+  message: '',
+}
+
   /**
    * @method handleSendMessage
    * @param {object} e

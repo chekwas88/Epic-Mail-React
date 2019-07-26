@@ -17,6 +17,11 @@ import { loginAction, clearErrors, processRequest, } from '../redux/actions/auth
  * @param {object} event - Synthetic event object
  */
 export class LoginComponent extends Component {
+  state = {
+    email: '',
+    password: '',
+  }
+
   /**
    * @method componentDidMount
    * @description React lifecycle method
@@ -36,11 +41,19 @@ export class LoginComponent extends Component {
     }
 
     handleUserSignIn = (event) => {
+      const {
+        email,
+        password,
+      } = this.state;
+      const user = {
+        email,
+        password,
+      };
       const { history } = this.props;
       event.preventDefault();
       const { loginUser, loader } = this.props;
       loader();
-      loginUser(this.state, history);
+      loginUser(user, history);
     }
 
     /**
@@ -49,9 +62,7 @@ export class LoginComponent extends Component {
    * @returns {JSX} React component markup
    */
     render() {
-      const {
-        errors, loadingText,
-      } = this.props;
+      const { props: { errors, loadingText }, state: { password, email } } = this;
       const passwordError = errors && errors.errors && errors.errors.password;
       const emailError = errors && errors.errors && errors.errors.email;
       return (
@@ -64,6 +75,7 @@ export class LoginComponent extends Component {
               name="email"
               placeHolder="Email"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={email}
             />
             {emailError && <p className="error">{emailError}</p>}
           </div>
@@ -74,6 +86,7 @@ export class LoginComponent extends Component {
               name="password"
               placeHolder="Password"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={password}
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>
@@ -134,11 +147,21 @@ LoginComponent.propTypes = {
       email: string,
     }),
   }),
-  history: string.isRequired,
+  history: PropTypes.exact({
+    length: number,
+    action: string,
+    location: {
+      pathname: string,
+      search: string,
+      hash: string,
+      key: string,
+    }
+  }),
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,
 };
 LoginComponent.defaultProps = {
   errors: {},
+  history: {},
 };

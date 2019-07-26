@@ -59,10 +59,10 @@ export class SentBox extends Component {
    */
     displaySentMessages = () => {
       const { sentMessages } = this.props;
-      if (sentMessages.length === 0) {
+      if (typeof sentMessages === 'string') {
         return (
           <div className="empty-return">
-            <p>Your sent box is empty</p>
+            <p>{ sentMessages }</p>
           </div>
         );
       }

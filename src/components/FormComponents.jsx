@@ -16,6 +16,7 @@ const InputField = (
     placeHolder,
     required,
     inputChangeHandler,
+    value,
   }
 ) => (
   <Fragment>
@@ -23,6 +24,7 @@ const InputField = (
       type={type}
       id={fieldId}
       name={name}
+      value={value}
       required={required}
       placeholder={placeHolder}
       onChange={inputChangeHandler}
@@ -35,12 +37,14 @@ InputField.propTypes = {
   fieldId: string.isRequired,
   name: string.isRequired,
   required: bool,
+  value: string,
   placeHolder: string.isRequired,
   inputChangeHandler: func.isRequired,
 };
 
 InputField.defaultProps = {
   type: 'text',
+  value: '',
   required: false,
 };
 
