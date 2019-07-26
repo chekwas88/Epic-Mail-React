@@ -38,18 +38,6 @@ const Sidebar = ({ displayModal }) => (
             <span>Sent</span>
           </li>
         </Link>
-        <Link to="/contacts">
-          <li>
-            <span><i className="fas fa-address-book" /></span>
-            <span>Contacts</span>
-          </li>
-        </Link>
-        <Link to="/groups">
-          <li>
-            <span><i className="fas fa-users" /></span>
-            <span>Groups</span>
-          </li>
-        </Link>
       </ul>
     </nav>
   </div>
