@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes, {
   func, string, number,
 } from 'prop-types';
@@ -152,7 +152,7 @@ export const mapStateToProps = ({ auth }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RegisterComponent);
+)(withRouter(RegisterComponent));
 
 RegisterComponent.propTypes = {
   register: func.isRequired,

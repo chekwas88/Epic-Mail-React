@@ -56,10 +56,11 @@ export class Inbox extends Component {
    */
     displayReceivedMessages = () => {
       const { receivedMessages } = this.props;
-      if (!receivedMessages.length > 1) {
+      console.log(receivedMessages);
+      if (typeof receivedMessages === 'string') {
         return (
           <div className="empty-return">
-            <p>You have no inbox message</p>
+            <p>{receivedMessages}</p>
           </div>
         );
       }

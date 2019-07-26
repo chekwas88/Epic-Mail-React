@@ -27,16 +27,27 @@ export class Header extends Component {
           <li>
             <Link to="/sent">Sent</Link>
           </li>
-          <li>
-            <Link to="/groups">Groups</Link>
-          </li>
         </Fragment>
       );
     }
     return (
       <header>
         <nav className="navbar">
-          <div className="logo" />
+          {/* <div className="logo">
+            <span>
+              <Link to="/">
+                <i className="fab fa-bandcamp" />
+                <span>Home</span>
+              </Link>
+
+            </span>
+          </div> */}
+          <Link to="/" className="logo">
+            <li>
+              <span><i className="fab fa-bandcamp" /></span>
+              <span>Home</span>
+            </li>
+          </Link>
           <ul className="header-links">
             {headerContent}
           </ul>
