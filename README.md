@@ -43,6 +43,7 @@ run `npm start` to start up the project.
 - Eslint
 - Babel
 - Jest
+- enzyme
 
 
 
