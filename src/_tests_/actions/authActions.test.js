@@ -33,7 +33,7 @@ describe('authAction', () => {
     done();
   });
 
-  it('should return an error when user exits', (done) => {
+  it('should return an error when user exist', (done) => {
     const error = 'This username is already in use';
     nock('https://agentcorvinus-epic-mail.herokuapp.com')
       .post('/v1/api/auth/signup')
@@ -61,7 +61,7 @@ describe('authAction', () => {
     done();
   });
 
-  it('Logs in a user', (done) => {
+  it('should return an error when user does not exist', (done) => {
     nock('https://agentcorvinus-epic-mail.herokuapp.com')
       .post('/v1/api/auth/login')
       .replyWithError();

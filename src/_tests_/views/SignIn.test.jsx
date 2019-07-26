@@ -1,42 +1,46 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import ReduxPromise from 'redux-promise';
-import { BrowserRouter as Router } from 'react-router-dom';
-import reducers from '../../redux/reducers/rootReducer';
-import Login from '../../components/Signin';
+import { LoginComponent } from '../../components/Signin';
 
-const store = createStore(reducers, applyMiddleware(ReduxPromise));
 const props = {
-  register: () => {},
-  errors: {},
-  history: '',
-  loader: () => {},
+  loginUser: jest.fn(),
+  loader: jest.fn(),
+  clearAuthErrors: jest.fn(),
+  history: '/',
   loadingText: 'loading',
-  clearAuthErrors: () => {},
+  errors: {}
 };
 describe('test Login component', () => {
-  const loginComponent = mount(
-    <Provider store={store}>
-      <Router>
-        <Login {...props} />
-      </Router>
-    </Provider>
+  const wrapper = mount(
+    <LoginComponent {...props} />
   );
-  it('should ensure that header exists', () => {
-    expect(loginComponent.find('form').exists()).toBe(true);
+  it('should ensure that form element exists', () => {
+    expect(wrapper.find('form').exists()).toBe(true);
   });
 
-  it('should mock form submission', async () => {
+  it('should mock form submission', (done) => {
     const mockFn = jest.fn();
-    const loginForm = loginComponent.find('form.userform');
+    const loginForm = wrapper.find('form.userform');
     loginForm.simulate('submit', { preventDefault: mockFn });
+    expect(mockFn).toHaveBeenCalledTimes(1);
+    expect(wrapper.props().loginUser).toHaveBeenCalledTimes(1);
+    done();
   });
 
-  it('should mock user input', async () => {
-    const mockFn = jest.fn();
-    const inputField = loginComponent.find('InputField').at(0);
-    inputField.find('input').simulate('change', { preventDefault: mockFn });
+  it('should mock onchange on input element', (done) => {
+    const inputField = wrapper.find('InputField').at(0);
+    inputField.simulate('change', {
+      target: { name: 'email', value: 'marshall@epicmail.com' }
+    });
+    expect(wrapper.state().email).toEqual('marshall@epicmail.com');
+    done();
+  });
+  it('should mock onchange on input element', (done) => {
+    const inputField = wrapper.find('InputField').at(1);
+    inputField.find('input').simulate('change', {
+      target: { name: 'password', value: 'password' }
+    });
+    expect(wrapper.state().password).toEqual('password');
+    done();
   });
 });

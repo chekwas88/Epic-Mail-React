@@ -2,8 +2,8 @@
 
 exports[`authAction Logs in a user 1`] = `Promise {}`;
 
-exports[`authAction Logs in a user 2`] = `Promise {}`;
-
 exports[`authAction should register a user 1`] = `Promise {}`;
 
-exports[`authAction should return an error when user exits 1`] = `Promise {}`;
+exports[`authAction should return an error when user does not exist 1`] = `Promise {}`;
+
+exports[`authAction should return an error when user exist 1`] = `Promise {}`;
