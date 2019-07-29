@@ -18,7 +18,7 @@ import { convertTime } from '../utils/index';
  * @class Inbox
  * @description User login/sign view component
  */
-export class Inbox extends Component {
+export class InboxComponent extends Component {
   state = {
     isOpen: false,
   }
@@ -56,7 +56,6 @@ export class Inbox extends Component {
    */
     displayReceivedMessages = () => {
       const { receivedMessages } = this.props;
-      console.log(receivedMessages);
       if (typeof receivedMessages === 'string') {
         return (
           <div className="empty-return">
@@ -158,15 +157,15 @@ export const mapStateToProps = ({ auth, messages }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Inbox);
+)(InboxComponent);
 
-Inbox.propTypes = {
+InboxComponent.propTypes = {
   getReceivedMessages: func.isRequired,
   loader: func.isRequired,
   receivedMessages: arrayOf(object),
   isLoggedIn: bool.isRequired,
   loadingText: string.isRequired,
 };
-Inbox.defaultProps = {
+InboxComponent.defaultProps = {
   receivedMessages: [],
 };

@@ -1,48 +1,48 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import ReduxPromise from 'redux-promise';
-import { BrowserRouter as Router } from 'react-router-dom';
-import reducers from '../../redux/reducers/rootReducer';
-import Compose from '../../Views/Compose';
+import { ComposeComponent } from '../../Views/Compose';
 
-const store = createStore(reducers, applyMiddleware(ReduxPromise));
+
 const props = {
-  closeModal: () => {},
-  sendMessage: () => {},
-  clearMessageErrors: () => {},
-  loader: () => {},
+  closeModal: jest.fn(),
+  sendMessage: jest.fn(),
+  clearMessageErrors: jest.fn(),
+  loader: jest.fn(),
   loadingText: 'loading',
   errors: {},
 };
-describe('test Login component', () => {
-  const composeComponent = mount(
-    <Provider store={store}>
-      <Router>
-        <Compose {...props} />
-      </Router>
-    </Provider>
-  );
+
+const wrapper = mount(
+  <ComposeComponent {...props} />
+);
+
+
+describe('test compose component', () => {
   it('should ensure that Modal exists', () => {
-    expect(composeComponent.find('Modal').exists()).toBe(true);
-    expect(composeComponent.find('Modal').first('div').hasClass('compose-layout'));
+    expect(wrapper.find('Modal').exists()).toBe(true);
+    expect(wrapper.find('Modal').first('div').hasClass('compose-layout'));
   });
 
-  it('should mock form submission', async () => {
+  it('should mock form submission', (done) => {
     const mockFn = jest.fn();
-    const button = composeComponent.find('button.compose-bttn');
+    const button = wrapper.find('button.compose-bttn');
     button.simulate('click', { preventDefault: mockFn });
+    expect(mockFn).toHaveBeenCalledTimes(1);
+    expect(wrapper.props().sendMessage).toHaveBeenCalledTimes(1);
+    done();
   });
 
-  it('should mock user input', async () => {
-    const mockFn = jest.fn();
-    const inputField = composeComponent.find('InputField').at(0);
-    inputField.find('input').simulate('change', { preventDefault: mockFn });
+  it('should mock onChange on input element', (done) => {
+    const div = wrapper.find('Modal');
+    const inputField = div.find('InputField').at(0);
+    inputField.find('input').simulate('change', { target: { name: 'recipient', value: 'marshall@epicmail.com' } });
+    expect(wrapper.state().recipient).toEqual('marshall@epicmail.com');
+    done();
   });
-  it('should mock user input', async () => {
-    const mockFn = jest.fn();
-    const inputField = composeComponent.find('InputField').at(1);
-    inputField.find('input').simulate('change', { preventDefault: mockFn });
+  it('should mock onChange on textarea element', (done) => {
+    const inputField = wrapper.find('textarea');
+    inputField.simulate('change', { target: { name: 'message', value: 'hola' } });
+    expect(wrapper.state().message).toEqual('hola');
+    done();
   });
 });

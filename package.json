@@ -71,6 +71,7 @@
         "redux-thunk": "^2.3.0",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.1.0",
+        "sinon": "^7.3.2",
         "webpack": "^4.29.6",
         "webpack-cli": "^3.3.0"
     }

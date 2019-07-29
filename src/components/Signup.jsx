@@ -16,6 +16,14 @@ import { registerAction, clearErrors, processRequest, } from '../redux/actions/a
  * @param {object} event - Synthetic event object
  */
 export class RegisterComponent extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  }
+
   /**
    * @method componentDidMount
    * @description React lifecycle method
@@ -36,9 +44,23 @@ export class RegisterComponent extends Component {
 
     handleSignUp = (event) => {
       const { register, loader, history } = this.props;
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword
+      } = this.state;
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword
+      };
       event.preventDefault();
       loader();
-      register(this.state, history);
+      register(newUser, history);
     };
 
     /**
@@ -47,7 +69,11 @@ export class RegisterComponent extends Component {
    * @returns {JSX} React component markup
    */
     render() {
-      const { errors, loadingText, } = this.props;
+      const {
+        props: { errors, loadingText }, state: {
+          firstName, lastName, confirmPassword, password, email
+        }
+      } = this;
       const passwordError = errors && errors.errors && errors.errors.password;
       const emailError = errors && errors.errors && errors.errors.email;
       const firstNameError = errors && errors.errors && errors.errors.firstName;
@@ -63,6 +89,7 @@ export class RegisterComponent extends Component {
               name="firstName"
               placeHolder="FirstName"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={firstName}
             />
             {firstNameError && <p className="error">{firstNameError}</p>}
           </div>
@@ -73,6 +100,7 @@ export class RegisterComponent extends Component {
               name="lastName"
               placeHolder="LastName"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={lastName}
             />
             {lastNameError && <p className="error">{lastNameError}</p>}
           </div>
@@ -83,6 +111,7 @@ export class RegisterComponent extends Component {
               name="email"
               placeHolder="Email"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={email}
             />
             {emailError && <p className="error">{emailError}</p>}
           </div>
@@ -94,6 +123,7 @@ export class RegisterComponent extends Component {
               name="password"
               placeHolder="Password"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={password}
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>
@@ -105,6 +135,7 @@ export class RegisterComponent extends Component {
               name="confirmPassword"
               placeHolder="ConfirmPassword"
               inputChangeHandler={e => this.inputChangeHandler(e)}
+              value={confirmPassword}
             />
             {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
           </div>
@@ -167,7 +198,16 @@ RegisterComponent.propTypes = {
       lastName: string,
     }),
   }),
-  history: string.isRequired,
+  history: PropTypes.exact({
+    length: number,
+    action: string,
+    location: {
+      pathname: string,
+      search: string,
+      hash: string,
+      key: string,
+    }
+  }),
   loader: func.isRequired,
   loadingText: string.isRequired,
   clearAuthErrors: func.isRequired,
@@ -175,4 +215,5 @@ RegisterComponent.propTypes = {
 
 RegisterComponent.defaultProps = {
   errors: string,
+  history: {},
 };

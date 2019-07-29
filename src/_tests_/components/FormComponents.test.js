@@ -5,12 +5,13 @@ import { InputField } from '../../components/FormComponents';
 
 describe('Input field component should be rendered', () => {
   const props = {
-    required: 'true',
+    required: true,
     fieldId: 'comment',
     type: 'text',
     name: 'field',
     inputChangeHandler: jest.fn(),
     placeHolder: 'field',
+    value: 'input',
   };
   const textFieldComponent = shallow(<InputField {...props} />);
 
