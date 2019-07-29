@@ -27,12 +27,18 @@ state = {
    * @returns {undefined}
    */
   handleSendMessage = (e) => {
+    const { recipient, subject, message } = this.state;
+    const msgObj = {
+      recipient,
+      subject,
+      message,
+    };
     e.preventDefault();
     const { clearMessageErrors } = this.props;
     clearMessageErrors();
     const { sendMessage, loader } = this.props;
     loader();
-    sendMessage(this.state);
+    sendMessage(msgObj);
   }
 
   /**
@@ -54,7 +60,10 @@ state = {
    * @returns {JSX} React component markup
    */
   render() {
-    const { closeModal, loadingText, errors } = this.props;
+    const {
+      props: { closeModal, loadingText, errors },
+      state: { recipient, subject, message },
+    } = this;
     const messageError = errors && errors.errors && errors.errors.message;
     const recipientError = errors && errors.errors && errors.errors.recipient;
     const subjectError = errors && errors.errors && errors.errors.subject;
@@ -76,6 +85,7 @@ state = {
                   placeHolder="Recipient"
                   required
                   inputChangeHandler={e => this.inputChangeHandler(e)}
+                  value={recipient}
                 />
                 {recipientError && <p className="error">{recipientError}</p>}
               </div>
@@ -89,12 +99,13 @@ state = {
                   placeHolder="Subject"
                   required
                   inputChangeHandler={e => this.inputChangeHandler(e)}
+                  value={subject}
                 />
                 {subjectError && <p className="error">{subjectError}</p>}
               </div>
               <div>
                 {errors.error && <p className="error">{errors.error}</p>}
-                <textarea id="grp-message" name="message" cols="65" rows="15" onChange={e => this.inputChangeHandler(e)} required />
+                <textarea id="grp-message" name="message" cols="65" rows="15" onChange={e => this.inputChangeHandler(e)} value={message} required />
                 {messageError && <p className="error">{messageError}</p>}
               </div>
 
