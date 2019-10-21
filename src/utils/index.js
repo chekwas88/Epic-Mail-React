@@ -18,4 +18,18 @@ const convertTime = (time) => {
 
   return localeDate;
 };
-export { convertTime };
+/**
+ * @method displayChunkMessage
+ * @description converts time to en-GB locale
+ * @param {string} msg
+ * @returns {string} locale time
+ */
+const displayChunkMessage = (msg) => {
+  let element = '<div>';
+  msg.forEach((cm) => {
+    element += `<p>${cm}</p>`;
+  });
+  element += '</div>';
+  return element;
+};
+export { convertTime, displayChunkMessage };

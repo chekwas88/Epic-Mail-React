@@ -28,6 +28,7 @@
       "comma-dangle": 0,
       "import/no-named-as-default":0,
       "react/jsx-filename-extension": 0,
+      "linebreak-style": 0,
       "curly": ["error", "multi-line"],
       "import/no-unresolved": [
         2,

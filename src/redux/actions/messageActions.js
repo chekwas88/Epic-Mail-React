@@ -8,6 +8,8 @@ import {
   SEND_MESSAGE,
   GET_SENT_MESSAGES,
   GET_SENT_MESSAGES_ERROR,
+  GET_MESSAGE,
+  GET_MESSAGE_ERROR,
   SEND_MESSAGE_ERROR,
   CLEAR_MESSAGE_ERROR,
 
@@ -86,6 +88,31 @@ const getSentMessagesAction = async () => {
 };
 
 /**
+ * @method getMessagesAction
+ * @param {int} id
+ * @returns {object} action object
+ */
+const getMessageAction = async (id) => {
+  try {
+    const payload = await get(`${BASE_URL}/messages/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+    });
+    const { data } = payload.data;
+    const message = data[0].data;
+    return {
+      type: GET_MESSAGE,
+      payload: { message }
+    };
+  } catch (error) {
+    return {
+      type: GET_MESSAGE_ERROR,
+      payload: error.response.data,
+    };
+  }
+};
+
+
+/**
  * @method processingRequest
  * @returns {object} action object
  */
@@ -102,5 +129,10 @@ const clearErrors = () => ({
 });
 
 export {
-  getReceivedMessagesAction, getSentMessagesAction, processRequest, sendMessageAction, clearErrors
+  getReceivedMessagesAction,
+  getSentMessagesAction,
+  getMessageAction,
+  processRequest,
+  sendMessageAction,
+  clearErrors
 };

@@ -8,6 +8,7 @@ import reducers from './redux/reducers/rootReducer';
 import Landing from './Views/Landing';
 import ConnectedInbox from './Views/Inbox';
 import ConnectedSentbox from './Views/Sent';
+import ConnectedSingleMessage from './Views/SingleMessage';
 import Modal from './components/Modal';
 import './assets/css/style.css';
 
@@ -25,6 +26,7 @@ const App = () => (
       <Route exact path="/inbox" component={ConnectedInbox} />
       <Route exact path="/sent" component={ConnectedSentbox} />
       <Route exact path="/modal" component={Modal} />
+      <Route path="/message/:messageId" component={ConnectedSingleMessage} />
     </Router>
   </Provider>
 

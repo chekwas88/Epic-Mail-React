@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
   func, string, bool, arrayOf, object
 } from 'prop-types';
@@ -70,21 +70,23 @@ export class SentBox extends Component {
         <div className="layout-div">
           {sentMessages.map(m => (
             <Fragment key={m.id}>
-              <div className="msg">
-                <span>
-                  {m.receivername}
-                </span>
-                <span>
-                  {m.subject}
-                    -
-                  {m.message.substring(0, 50)}
-                  ...
-                </span>
-                <span>
-                  {convertTime(m.createdon)}
-                </span>
-              </div>
-              <span className="delSpan"><i className="fas fa-trash delete" /></span>
+              <Link key={m.id} className="msg-link" to={`/message/${m.id}`}>
+                <div className="msg">
+                  <span>
+                    {m.receivername}
+                  </span>
+                  <span>
+                    {m.subject}
+                      -
+                    {m.message.substring(0, 50)}
+                    ...
+                  </span>
+                  <span>
+                    {convertTime(m.createdon)}
+                  </span>
+                </div>
+                <span className="delSpan"><i className="fas fa-trash delete" /></span>
+              </Link>
             </Fragment>
 
           ))}

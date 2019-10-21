@@ -1,12 +1,14 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
-  func, string, bool, arrayOf, object
+  func, string, bool
 } from 'prop-types';
 import 'regenerator-runtime';
-import { getReceivedMessagesAction, processRequest } from '../redux/actions/messageActions';
+import { getMessageAction, processRequest } from '../redux/actions/messageActions';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Compose from './Compose';
@@ -15,10 +17,10 @@ import Footer from '../components/Footer';
 import { convertTime } from '../utils/index';
 
 /**
- * @class Inbox
+ * @class MessageComponent
  * @description User login/sign view component
  */
-export class InboxComponent extends Component {
+export class MessageComponent extends Component {
   state = {
     isOpen: false,
   }
@@ -28,9 +30,11 @@ export class InboxComponent extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    const { getReceivedMessages, loader } = this.props;
+    const { getReceivedMessage, loader } = this.props;
     loader();
-    getReceivedMessages();
+    // eslint-disable-next-line react/destructuring-assignment
+    const { messageId } = this.props.match.params;
+    getReceivedMessage(messageId);
   }
 
   /**
@@ -50,41 +54,50 @@ export class InboxComponent extends Component {
   }
 
   /**
+  * @method displayChunkMessage
+   * @description displays received messages of a user
+   * @param {string} msg
+   * @returns {JSX} React component markup
+   */
+  displayChunkMessage = msg => (
+    <Fragment>
+      {msg.map((cm, index) => <p key={index}>{cm}</p>)}
+    </Fragment>
+  );
+
+  /**
   * @method displayReceivedMessages
    * @description displays received messages of a user
    * @returns {JSX} React component markup
    */
-    displayReceivedMessages = () => {
-      const { receivedMessages } = this.props;
-      if (typeof receivedMessages === 'string') {
+    displayReceivedMessage = () => {
+      const { message, loadingText } = this.props;
+      if (!message || !message.message) {
         return (
-          <div className="empty-return">
-            <p>{receivedMessages}</p>
-          </div>
+          <div className="mail-spinner">{loadingText ? <Spinner loadingText={loadingText} /> : ''}</div>
         );
       }
+
+      const chunkMailMessages = message.message.match(/(.|[\r\100]){1,100}/g);
       return (
-        <div className="layout-div">
-          {
-            receivedMessages.map(m => (
-              <Fragment key={m.id}>
-                <Link className="msg-link" to={`/message/${m.id}`}>
-                  <div className="msg">
-                    <span>
-                      {m.sendername}
-                    </span>
-                    <span>
-                      {m.message.substring(0, 50)}
-                  ...
-                    </span>
-                    <span>
-                      {convertTime(m.createdon)}
-                    </span>
-                  </div>
-                  <span className="delSpan"><i className="fas fa-trash delete" /></span>
-                </Link>
-              </Fragment>
-            ))}
+        <div className="rfbttn">
+          <section className="messageView">
+            <h3>{message.subject}</h3>
+            <div className="sr">
+              <p>
+                {message.sendername}
+                {' '}
+                <i>
+                to:
+                  {message.recipient}
+                </i>
+              </p>
+              <span>{convertTime(message.createdon)}</span>
+            </div>
+            <div>
+              {this.displayChunkMessage(chunkMailMessages)}
+            </div>
+          </section>
         </div>
       );
     };
@@ -111,13 +124,8 @@ export class InboxComponent extends Component {
 
             <div>
               <div className="mail-spinner">{loadingText ? <Spinner loadingText={loadingText} /> : ''}</div>
-              <ul className="message-header">
-                <li>Sender</li>
-                <li>Message</li>
-                <li>Time</li>
-              </ul>
             </div>
-            {this.displayReceivedMessages()}
+            {this.displayReceivedMessage()}
           </div>
           <Footer />
         </Fragment>
@@ -132,7 +140,7 @@ export class InboxComponent extends Component {
  */
 export const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    getReceivedMessages: getReceivedMessagesAction,
+    getReceivedMessage: getMessageAction,
     loader: processRequest,
   },
   dispatch
@@ -146,13 +154,13 @@ export const mapDispatchToProps = dispatch => bindActionCreators(
 export const mapStateToProps = ({ auth, messages }) => {
   const { isLoggedIn } = auth;
   const {
-    receivedMessages,
+    message,
     loadingText,
   } = messages;
   return {
     isLoggedIn,
     loadingText,
-    receivedMessages,
+    message,
   };
 };
 
@@ -160,15 +168,11 @@ export const mapStateToProps = ({ auth, messages }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(InboxComponent);
+)(MessageComponent);
 
-InboxComponent.propTypes = {
-  getReceivedMessages: func.isRequired,
+MessageComponent.propTypes = {
+  getReceivedMessage: func.isRequired,
   loader: func.isRequired,
-  receivedMessages: arrayOf(object),
   isLoggedIn: bool.isRequired,
   loadingText: string.isRequired,
-};
-InboxComponent.defaultProps = {
-  receivedMessages: [],
 };

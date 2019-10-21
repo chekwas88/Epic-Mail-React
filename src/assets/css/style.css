@@ -31,7 +31,11 @@ body {
   .mail-spinner {
     z-index: 10;
     font-size: 40px;
-    text-align: center;
+    /* text-align: center; */
+    position: absolute;
+    top:  45%;
+    left: 50%;
+    transform: translate(-45%, -50%);
   }
   
   /* Header component */
@@ -368,24 +372,24 @@ body {
   }
   
   
-  section.messageView h3{
+  .messageView h3{
     text-align: center;
   }
-  section.messageView {
+  .messageView {
     width: 80%;
     margin: 0 auto;
     border: 1px solid rgb(245, 241, 241);
   }
   
-  section.messageView .sr p{
+  .messageView .sr p{
     font-weight: 600;
   }
   
-  section.messageView .sr p i{
+  .messageView .sr p i{
     color: #0dc544;
   }
   
-  section.messageView div span {
+  .messageView div span {
     padding: 0;
   }
   
@@ -980,6 +984,11 @@ body {
     width: 100%;
     position: fixed;
     bottom: 0;
+  }
+  /* new styles */
+  a.msg-link {
+    text-decoration: none;
+    color: inherit;
   }
   
   
