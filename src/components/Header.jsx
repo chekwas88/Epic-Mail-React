@@ -1,8 +1,10 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bool } from 'prop-types';
+import { bool, func } from 'prop-types';
+import { logoutAction } from '../redux/actions/authActions';
 
 
 /**
@@ -10,6 +12,16 @@ import { bool } from 'prop-types';
  * @description Header component
  */
 export class Header extends Component {
+  /**
+   * @method logout
+   * @description user logout method
+   * @returns {JSX} React component markup
+   */
+  logout = () => {
+    const { logoutUser } = this.props;
+    logoutUser();
+  }
+
   /**
    * @method render
    * @description React render method
@@ -22,10 +34,7 @@ export class Header extends Component {
       headerContent = (
         <Fragment>
           <li>
-            <Link to="/inbox">Inbox</Link>
-          </li>
-          <li>
-            <Link to="/sent">Sent</Link>
+            <Link className="logout" to="/" onClick={this.logout}>Logout</Link>
           </li>
         </Fragment>
       );
@@ -33,15 +42,7 @@ export class Header extends Component {
     return (
       <header>
         <nav className="navbar">
-          {/* <div className="logo">
-            <span>
-              <Link to="/">
-                <i className="fab fa-bandcamp" />
-                <span>Home</span>
-              </Link>
-
-            </span>
-          </div> */}
+          <h3 className="namedisplay">{localStorage.getItem('fullname')}</h3>
           <Link to="/" className="logo">
             <li>
               <span><i className="fab fa-bandcamp" /></span>
@@ -56,6 +57,18 @@ export class Header extends Component {
     );
   }
 }
+/**
+ * @method mapDispatchToProps
+ * @description maps redux actions to props
+ * @param {callback} dispatch destructured reducer state object
+ * @returns {object} state
+ */
+export const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    logoutUser: logoutAction,
+  },
+  dispatch
+);
 
 /**
  * @method mapStateToProps
@@ -69,8 +82,12 @@ export const mapStateToProps = ({ auth }) => {
     isLoggedIn,
   };
 };
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);
 
 Header.propTypes = {
   isLoggedIn: bool.isRequired,
+  logoutUser: func.isRequired,
 };

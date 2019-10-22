@@ -59,12 +59,11 @@ body {
   }
   .navbar ul li {
     padding: 10px;
-    border-bottom: 1px solid rgba(233,233,233,0.2);
     cursor: pointer;
   }
   
   .navbar ul li:hover {
-    border-bottom: 2px solid #e68f0e;
+    font-size: 16px;
   }
   
   .navbar ul li a, a.logo {
@@ -72,10 +71,7 @@ body {
     color: #fff;
   
   }
-  /* .logo span a  span {
-    padding-left: 10px;
-    margin-top: -10px;
-  } */
+
   
   .navbar .logo{
     position: absolute;
@@ -989,6 +985,25 @@ body {
   a.msg-link {
     text-decoration: none;
     color: inherit;
+  }
+  a.logout {
+    padding: 5px 10px;
+    position: absolute;
+    top: 15%;
+    left: -60%;
+    background: #e68f0e;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .namedisplay {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+  ul.header-links li {
+    text-decoration: none;
   }
   
   

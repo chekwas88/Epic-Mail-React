@@ -8,6 +8,7 @@ import {
   LOGIN_ERROR,
   PROCESS_REQUEST,
   CLEAR_AUTH_ERROR,
+  LOGOUT_USER,
 } from '../actionTypes/index';
 
 
@@ -72,6 +73,17 @@ const loginAction = async (userData, history) => {
 };
 
 /**
+ * @method logoutAction
+ * @returns {object} action object
+ */
+const logoutAction = () => {
+  localStorage.clear();
+  return {
+    type: LOGOUT_USER,
+  };
+};
+
+/**
  * @method clearErrors
  * @returns {object} action object
  */
@@ -89,5 +101,9 @@ const processRequest = () => ({
 
 
 export {
-  registerAction, loginAction, clearErrors, processRequest,
+  registerAction,
+  loginAction,
+  clearErrors,
+  processRequest,
+  logoutAction,
 };

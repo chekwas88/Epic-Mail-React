@@ -5,6 +5,7 @@ import {
   LOGIN_USER,
   CLEAR_AUTH_ERROR,
   PROCESS_REQUEST,
+  LOGOUT_USER,
 } from '../actionTypes/index';
 
 
@@ -61,6 +62,11 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         loadingText: '',
         errors: payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isLoggedIn: false,
       };
     case PROCESS_REQUEST:
       return {

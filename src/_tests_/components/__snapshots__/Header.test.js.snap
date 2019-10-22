@@ -5,6 +5,9 @@ exports[`Test for Header component should render header correctly 1`] = `
   <nav
     className="navbar"
   >
+    <h3
+      className="namedisplay"
+    />
     <Link
       className="logo"
       to="/"
