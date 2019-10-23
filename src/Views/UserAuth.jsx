@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable import/no-named-as-default */
 
 
 import React, { Fragment, Component } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bool } from 'prop-types';
 import SignIn from '../components/Signin';
 import Register from '../components/Signup';
 /**
  * @class UserAuthComponent
  * @description User login/sign view component
  */
-class UserAuthComponent extends Component {
+export class UserAuthComponent extends Component {
     state = {
       register: false,
       login: true,
@@ -36,8 +38,10 @@ class UserAuthComponent extends Component {
    */
     render() {
       const { login, register } = this.state;
+      const { isLoggedIn } = this.props;
       return (
         <Fragment>
+          { isLoggedIn && <Redirect to="/inbox" />}
           <div className="container">
             <div>
               <nav>
@@ -69,4 +73,26 @@ class UserAuthComponent extends Component {
     }
 }
 
-export default UserAuthComponent;
+/**
+ * @method mapStateToProps
+ * @description maps reducer states to props
+ * @param {object} * destructured reducer state object
+ * @returns {object} state
+ */
+export const mapStateToProps = ({ auth }) => {
+  const {
+    isLoggedIn,
+  } = auth;
+  return {
+    isLoggedIn
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+)(withRouter(UserAuthComponent));
+
+UserAuthComponent.propTypes = {
+  isLoggedIn: bool.isRequired
+};

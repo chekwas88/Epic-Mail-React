@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
-  func, string, bool
+  func, string
 } from 'prop-types';
 import 'regenerator-runtime';
 import { getMessageAction, processRequest } from '../redux/actions/messageActions';
@@ -110,13 +110,13 @@ export class MessageComponent extends Component {
     render() {
       const { isOpen } = this.state;
       const {
-        isLoggedIn,
         loadingText,
+        isLoggedIn,
       } = this.props;
 
       return (
         <Fragment>
-          {!isLoggedIn && <Redirect to="/landing" />}
+          { !isLoggedIn && <Redirect to="/" />}
           <Header />
           <Sidebar displayModal={this.displayModal} />
           <div className="table-div">
@@ -173,6 +173,5 @@ export default connect(
 MessageComponent.propTypes = {
   getReceivedMessage: func.isRequired,
   loader: func.isRequired,
-  isLoggedIn: bool.isRequired,
   loadingText: string.isRequired,
 };

@@ -1,9 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
-  func, string, bool, arrayOf, object
+  func, string, arrayOf, object, bool
 } from 'prop-types';
 import 'regenerator-runtime';
 import { getSentMessagesAction, processRequest, clearErrors } from '../redux/actions/messageActions';
@@ -85,7 +85,6 @@ export class SentBox extends Component {
                     {convertTime(m.createdon)}
                   </span>
                 </div>
-                <span className="delSpan"><i className="fas fa-trash delete" /></span>
               </Link>
             </Fragment>
 
@@ -108,7 +107,7 @@ export class SentBox extends Component {
 
       return (
         <Fragment>
-          {!isLoggedIn && <Redirect to="/landing" />}
+          { !isLoggedIn && <Redirect to="/" />}
           <Header />
           <Sidebar displayModal={this.displayModal} />
           <div className="table-div">
@@ -172,9 +171,9 @@ export default connect(
 SentBox.propTypes = {
   getSentMessages: func.isRequired,
   loader: func.isRequired,
+  isLoggedIn: bool.isRequired,
   clearMessageErrors: func.isRequired,
   sentMessages: arrayOf(object),
-  isLoggedIn: bool.isRequired,
   loadingText: string.isRequired,
 };
 SentBox.defaultProps = {

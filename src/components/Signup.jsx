@@ -59,8 +59,8 @@ export class RegisterComponent extends Component {
         confirmPassword
       };
       event.preventDefault();
-      loader();
       register(newUser, history);
+      loader();
     };
 
     /**

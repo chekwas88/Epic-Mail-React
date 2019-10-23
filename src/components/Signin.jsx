@@ -40,7 +40,9 @@ export class LoginComponent extends Component {
       });
     }
 
+    // eslint-disable-next-line no-unused-vars
     handleUserSignIn = (event) => {
+      event.preventDefault();
       const {
         email,
         password,
@@ -50,10 +52,13 @@ export class LoginComponent extends Component {
         password,
       };
       const { history } = this.props;
-      event.preventDefault();
       const { loginUser, loader } = this.props;
+      loginUser(user);
       loader();
-      loginUser(user, history);
+      if (localStorage.getItem('userToken')) {
+        history.push('/inbox');
+      }
+      console.log(history);
     }
 
     /**
@@ -66,7 +71,7 @@ export class LoginComponent extends Component {
       const passwordError = errors && errors.errors && errors.errors.password;
       const emailError = errors && errors.errors && errors.errors.email;
       return (
-        <form onSubmit={this.handleUserSignIn} className="userform" method="post">
+        <form onSubmit={e => this.handleUserSignIn(e)} className="userform" method="Post">
           <div>
             {errors && <p className="error">{errors.error}</p>}
             <InputField

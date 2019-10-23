@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
@@ -20,6 +22,7 @@ export class Header extends Component {
   logout = () => {
     const { logoutUser } = this.props;
     logoutUser();
+    this.props.history.push('/');
   }
 
   /**

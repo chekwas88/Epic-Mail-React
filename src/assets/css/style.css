@@ -527,6 +527,7 @@ body {
     color: #054570;
     font-weight: bolder;
     font-size: 18px;
+   padding-left: 10px;
   }
   
   section.messageView div button {
@@ -619,8 +620,8 @@ body {
   }
   
   .delete:hover {
-    font-size: 20px;
-    z-index: 5;
+    font-size: 30px;
+    z-index: 50;
   }
   .gp-li-ch i:hover {
     box-shadow: 0 0 4px rgba(54, 52, 52, 0.7);

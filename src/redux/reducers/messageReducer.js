@@ -8,7 +8,7 @@ import {
   SEND_MESSAGE_ERROR,
   CLEAR_MESSAGE_ERROR,
   GET_MESSAGE,
-  GET_MESSAGE_ERROR
+  GET_MESSAGE_ERROR,
 } from '../actionTypes/index';
 
 
@@ -63,6 +63,7 @@ const messageReducer = (state = initialState, { type, payload }) => {
         loadingText: '',
         errors: payload,
       };
+
     case GET_MESSAGE:
       return {
         ...state,

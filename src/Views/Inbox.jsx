@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Fragment, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
-  func, string, bool, arrayOf, object
+  func, string, arrayOf, object, bool
 } from 'prop-types';
 import 'regenerator-runtime';
 import { getReceivedMessagesAction, processRequest } from '../redux/actions/messageActions';
@@ -49,7 +50,8 @@ export class InboxComponent extends Component {
     this.setState({ isOpen: true });
   }
 
-  /**
+
+    /**
   * @method displayReceivedMessages
    * @description displays received messages of a user
    * @returns {JSX} React component markup
@@ -81,7 +83,6 @@ export class InboxComponent extends Component {
                       {convertTime(m.createdon)}
                     </span>
                   </div>
-                  <span className="delSpan"><i className="fas fa-trash delete" /></span>
                 </Link>
               </Fragment>
             ))}
@@ -97,13 +98,14 @@ export class InboxComponent extends Component {
     render() {
       const { isOpen } = this.state;
       const {
-        isLoggedIn,
         loadingText,
+        isLoggedIn
       } = this.props;
 
       return (
+
         <Fragment>
-          {!isLoggedIn && <Redirect to="/landing" />}
+          { !isLoggedIn && <Redirect to="/" />}
           <Header />
           <Sidebar displayModal={this.displayModal} />
           <div className="table-div">
@@ -150,9 +152,9 @@ export const mapStateToProps = ({ auth, messages }) => {
     loadingText,
   } = messages;
   return {
-    isLoggedIn,
     loadingText,
     receivedMessages,
+    isLoggedIn,
   };
 };
 
@@ -166,8 +168,8 @@ InboxComponent.propTypes = {
   getReceivedMessages: func.isRequired,
   loader: func.isRequired,
   receivedMessages: arrayOf(object),
-  isLoggedIn: bool.isRequired,
   loadingText: string.isRequired,
+  isLoggedIn: bool.isRequired
 };
 InboxComponent.defaultProps = {
   receivedMessages: [],

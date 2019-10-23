@@ -48,7 +48,7 @@ const registerAction = async (userData, history) => {
  *  @param {string} history
  * @returns {object} action object
  */
-const loginAction = async (userData, history) => {
+const loginAction = async (userData) => {
   try {
     const loggedUser = await post(`${BASE_URL}/auth/login`, userData);
     const { data } = loggedUser.data;
@@ -59,7 +59,8 @@ const loginAction = async (userData, history) => {
     } = user;
     localStorage.setItem('fullname', `${firstname} ${lastname}`);
     localStorage.setItem('userToken', token);
-    history.push('/inbox');
+
+
     return {
       type: LOGIN_USER,
       payload: { ...user, token }
